@@ -1,0 +1,15 @@
+name: tavern
+description: A static site generator utilizing package:build
+version: 0.0.1
+homepage: https://github.com/johnpryan/tavern
+author: John Ryan <john.p.ryan4@gmail.com>
+
+environment:
+  sdk: '>=2.1.0 <3.0.0'
+
+dependencies:
+  build: any
+  markdown: any
+
+dev_dependencies:
+  test: ^1.0.0

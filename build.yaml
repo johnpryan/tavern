@@ -1,0 +1,12 @@
+builders:
+  copy:
+    import: "package:tavern/tavern.dart"
+    builder_factories:
+      - copyBuilder
+    build_extensions:
+      .md:
+        - .html
+    auto_apply: root_package
+    required_inputs:
+      - .md
+    applies_builders: []
