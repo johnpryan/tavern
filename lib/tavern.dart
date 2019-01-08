@@ -3,10 +3,10 @@ library tavern;
 import 'package:build/build.dart';
 import 'package:markdown/markdown.dart';
 
-Builder copyBuilder(_) => CopyBuilder();
+Builder markdownBuilder(_) => MarkdownBuilder();
 
 /// A really simple [Builder], it just makes copies!
-class CopyBuilder implements Builder {
+class MarkdownBuilder implements Builder {
   String extension = ".html";
 
   Future build(BuildStep buildStep) async {
