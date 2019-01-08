@@ -1,12 +1,22 @@
 builders:
+  strip_metadata:
+    import: "package:tavern/tavern.dart"
+    builder_factories:
+      - metadataBuilder
+    build_extensions:
+      .md:
+        - .metadata
+        - .contents
+    auto_apply: root_package
+    required_inputs:
+      - .md
   markdown:
     import: "package:tavern/tavern.dart"
     builder_factories:
       - markdownBuilder
     build_extensions:
-      .md:
+      .contents:
         - .html
     auto_apply: root_package
     required_inputs:
-      - .md
-    applies_builders: []
+      - .contents
