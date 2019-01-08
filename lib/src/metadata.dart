@@ -1,6 +1,7 @@
 library tavern.metadata;
 
 import 'package:build/build.dart';
+import 'package:tavern/src/extensions.dart';
 import 'package:yaml/yaml.dart';
 import 'dart:async';
 import 'dart:convert';
@@ -9,14 +10,11 @@ import 'package:tavern/src/utils.dart';
 Builder metadataBuilder(_) => MetadataBuilder();
 
 class MetadataBuilder implements Builder {
-  static const String _metadata = ".metadata";
-  static const String _contents = ".contents";
-
   Future build(BuildStep buildStep) async {
     var inputId = buildStep.inputId;
 
-    var metadataOutputId = inputId.changeExtension(_metadata);
-    var contentsOutputId = inputId.changeExtension(_contents);
+    var metadataOutputId = inputId.changeExtension(Extensions.metadata);
+    var contentsOutputId = inputId.changeExtension(Extensions.contents);
 
     var contents = await buildStep.readAsString(inputId);
     var metadata = extractMetadata(contents, inputId.path);
@@ -26,16 +24,16 @@ class MetadataBuilder implements Builder {
     }
 
     await Future.wait([
-    buildStep.writeAsString(contentsOutputId, metadata.content),
-    buildStep.writeAsString(metadataOutputId, json.encode(metadata.metadata)),
+      buildStep.writeAsString(contentsOutputId, metadata.content),
+      buildStep.writeAsString(metadataOutputId, json.encode(metadata.metadata)),
     ]);
   }
 
   Map<String, List<String>> get buildExtensions {
     return {
-      '.md': [
-        _metadata,
-        _contents,
+      Extensions.markdown: [
+        Extensions.metadata,
+        Extensions.contents,
       ]
     };
   }

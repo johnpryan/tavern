@@ -16,7 +16,18 @@ builders:
       - markdownBuilder
     build_extensions:
       .contents:
-        - .html
+        - .html_template
     auto_apply: root_package
     required_inputs:
       - .contents
+  template:
+    import: "package:tavern/tavern.dart"
+    builder_factories:
+    - templateBuilder
+    build_extensions:
+      .html_template:
+      - .html
+    auto_apply: root_package
+    required_inputs:
+    - .html_template
+    - .metadata

@@ -11,6 +11,7 @@ dependencies:
   build: ^1.0.0
   markdown: ^2.0.0
   yaml: ^2.1.0
+  mustache: any
 
 dev_dependencies:
   test: ^1.0.0
