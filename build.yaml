@@ -32,9 +32,9 @@ builders:
     - .mustache
     - .metadata
     - .htmlcontent
-#    applies_builders:
-#      - tavern|cleanup
-#post_process_builders:
-#  cleanup:
-#    import: "package:tavern/tavern.dart"
-#    builder_factory: cleanupBuilder
+    applies_builders:
+      - tavern|cleanup
+post_process_builders:
+  cleanup:
+    import: "package:tavern/tavern.dart"
+    builder_factory: cleanupBuilder
