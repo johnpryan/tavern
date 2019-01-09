@@ -2,38 +2,46 @@ A static site generator for blogs, written in Dart.
 
 ## Getting Started
 
-Start with a normal dart project with the following structure:
+Start with an empty project and add the following files:
  
-    web/
-      index.md
-      templates/
-        _index.mustache
-    pubspec.yaml
+ ```txt
+web/
+  index.md
+  templates/
+    _index.mustache
+pubspec.yaml
+ ```
 
 Add tavern as a dependency in `pubspec.yaml`:
 
-    name: my_awesome_blog
-    dependencies:
-      tavern: any
-      build: any
-    dev_dependencies:
-      build_runner: any
-      build_web_compilers: any
+```yaml
+name: my_awesome_blog
+dependencies:
+  tavern: any
+  build: any
+dev_dependencies:
+  build_runner: any
+  build_web_compilers: any
+```
 
 Edit `index.md`:
 
-    ---
-    title: Hello World!
-    category: Random
-    tags: ['code', 'dart']
-    template: web/templates/_index.mustache
-    ---
+```md
 
-    foo
+---
+title: Hello World!
+category: Random
+tags: ['code', 'dart']
+template: web/templates/_index.mustache
+---
+
+foo
+
+```
 
 Edit `web/templates/_index.mustache`:
 
-```
+```html
 <html>
 <head>
     <link rel="stylesheet" href="/style.css">
@@ -53,3 +61,14 @@ The `web/templates/_index.mustache` file is the mustache template that will be
 applied to this page. Templates can use any metadata specified in the markdown
 file.  For example:
 
+Fetch the projects dependencies:
+
+```bash
+pub get
+```
+
+Run build_runner:
+
+```bash
+pub run build_runner serve
+```
