@@ -16,18 +16,24 @@ builders:
       - markdownBuilder
     build_extensions:
       .contents:
-        - .html_template
+        - .mustache
     auto_apply: root_package
     required_inputs:
       - .contents
-  template:
+  mustache:
     import: "package:tavern/tavern.dart"
     builder_factories:
-    - templateBuilder
+    - mustacheBuilder
     build_extensions:
-      .html_template:
+      .mustache:
       - .html
     auto_apply: root_package
     required_inputs:
-    - .html_template
+    - .mustache
     - .metadata
+    applies_builders:
+      - tavern|cleanup
+post_process_builders:
+  cleanup:
+    import: "package:tavern/tavern.dart"
+    builder_factory: cleanupBuilder
