@@ -17,7 +17,7 @@ Add tavern as a dependency in `pubspec.yaml`:
 ```yaml
 name: my_awesome_blog
 dependencies:
-  tavern: any
+  tavern: ^3.0.0
   build: any
 dev_dependencies:
   build_runner: any
