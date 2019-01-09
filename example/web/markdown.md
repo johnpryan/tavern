@@ -14,6 +14,6 @@ Here's a python snippet:
 
 <pre>
 <code>
-{{> partial.py}}
+{{> lib/snippets/hello_world.py}}
 </code>
 </pre>

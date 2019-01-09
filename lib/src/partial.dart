@@ -1,6 +1,5 @@
 import 'package:build/build.dart';
 import 'package:tavern/src/extensions.dart';
-import 'package:path/path.dart' as p;
 
 Builder partialBuilder(_) => PartialBuilder();
 
@@ -10,7 +9,6 @@ class PartialBuilder implements Builder {
   Future build(BuildStep buildStep) async {
     var inputId = buildStep.inputId;
     var outputId = buildStep.inputId.changeExtension(Extensions.withPartials);
-    final relativeRootPath = p.dirname(inputId.path);
 
     var content = await buildStep.readAsString(inputId);
     final List<Future> futures = [];
@@ -19,7 +17,8 @@ class PartialBuilder implements Builder {
     _includeRE.allMatches(content).forEach((match) {
       final path = match.group(2);
 
-      var readStrFuture = buildStep.readAsString(new AssetId(inputId.package, _normalizePath(path, relativeRootPath)));
+      var readStrFuture =
+          buildStep.readAsString(new AssetId(inputId.package, path));
 
       futures.add((readStrFuture).then((partial) async {
         final content = await partial;
@@ -39,14 +38,6 @@ class PartialBuilder implements Builder {
   }
 
   Map<String, List<String>> get buildExtensions => {
-    Extensions.htmlContent: [Extensions.withPartials],
-  };
-
-  String _normalizePath(String path, String relativeRootPath) {
-    if (!path.startsWith('/')) {
-      return '$relativeRootPath/$path';
-    } else {
-      return 'web$path';
-    }
-  }
+        Extensions.htmlContent: [Extensions.withPartials],
+      };
 }
