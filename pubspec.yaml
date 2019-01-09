@@ -1,6 +1,6 @@
 name: tavern
 description: A static site generator for blogs with Dart support
-version: 3.1.0
+version: 3.2.0
 homepage: https://github.com/johnpryan/tavern2
 author: John Ryan <john.p.ryan4@gmail.com>
 
