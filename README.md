@@ -1,4 +1,4 @@
-A static site generator for blogs, written in Dart.
+A static site generator for blogs with Dart support
 
 ## Getting Started
 
