@@ -9,3 +9,11 @@ Here is some code:
 ```
 hello world!
 ```
+
+Here's a python snippet:
+
+<pre>
+<code>
+{{> partial.py}}
+</code>
+</pre>

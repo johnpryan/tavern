@@ -5,10 +5,11 @@ PostProcessBuilder cleanupBuilder(_) => CleanupBuilder();
 
 class CleanupBuilder extends FileDeletingBuilder implements PostProcessBuilder {
   CleanupBuilder() : super([
+    Extensions.htmlContent,
     Extensions.markdown,
     Extensions.markdownContent,
-    Extensions.htmlContent,
     Extensions.metadata,
     Extensions.mustache,
+    Extensions.withPartials,
   ]);
 }

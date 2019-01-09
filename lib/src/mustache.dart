@@ -4,7 +4,6 @@ import 'package:build/build.dart';
 import 'package:glob/glob.dart';
 import 'package:tavern/src/extensions.dart';
 import 'package:mustache/mustache.dart' as mustache;
-import 'package:path/path.dart' as p;
 
 Builder mustacheBuilder(_) => MustacheBuilder();
 
@@ -41,7 +40,7 @@ class MustacheBuilder implements Builder {
 
 
   Map<String, List<String>> get buildExtensions => {
-        Extensions.htmlContent: [Extensions.html],
+        Extensions.withPartials: [Extensions.html],
         Extensions.mustache: [Extensions.html],
       };
 
