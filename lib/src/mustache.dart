@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:build/build.dart';
+import 'package:glob/glob.dart';
 import 'package:tavern/src/extensions.dart';
 import 'package:mustache/mustache.dart' as mustache;
+import 'package:path/path.dart' as p;
 
 Builder mustacheBuilder(_) => MustacheBuilder();
 
@@ -13,12 +15,30 @@ class MustacheBuilder implements Builder {
     var outputId = inputId.changeExtension(Extensions.html);
     var contents = await buildStep.readAsString(inputId);
     var metadata = await _readMetadata(buildStep);
+    var templateName = metadata['template'] ?? "";
+    var templateStr = await _readTemplate(buildStep, templateName);
 
-    var template = new mustache.Template(contents, lenient: true);
+    metadata['content'] = contents;
+
+    var template = new mustache.Template(templateStr, lenient: true);
     var output = template.renderString(metadata);
 
     await buildStep.writeAsString(outputId, output);
   }
+
+  Future<String> _readTemplate(BuildStep buildStep, String fileName) async {
+    var assets = await buildStep.findAssets(Glob("web/templates/**")).toList();
+    for (var asset in assets) {
+      var assetFileName = p.url.basenameWithoutExtension(asset.path);
+      if (assetFileName == fileName) {
+        var assetStr = await buildStep.readAsString(asset);
+        return assetStr;
+      }
+    }
+
+    return "";
+  }
+
 
   Map<String, List<String>> get buildExtensions => {
         Extensions.htmlContent: [Extensions.html],

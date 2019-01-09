@@ -12,6 +12,8 @@ dependencies:
   markdown: ^2.0.0
   yaml: ^2.1.0
   mustache: any
+  glob: any
+  path: any
 
 dev_dependencies:
   test: ^1.0.0
