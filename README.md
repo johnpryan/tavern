@@ -61,6 +61,8 @@ The `web/templates/_index.mustache` file is the mustache template that will be
 applied to this page. Templates can use any metadata specified in the markdown
 file.  For example:
 
+## Developing
+
 Fetch the projects dependencies:
 
 ```bash
@@ -71,4 +73,13 @@ Run build_runner:
 
 ```bash
 pub run build_runner serve
+```
+
+## Releasing
+
+To build the static files for deployment, use the `build` command with the
+`--release` flag:
+
+```bash
+pub run build_runner build --release --output build
 ```
