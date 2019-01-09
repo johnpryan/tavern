@@ -17,9 +17,13 @@ class MustacheBuilder implements Builder {
     var templateName = metadata['template'] ?? "";
     var templateStr = await _readTemplate(buildStep, templateName);
 
-    metadata['content'] = contents;
 
     var template = new mustache.Template(templateStr, lenient: true);
+
+    // also render the metadata to the input file
+    var contentTemplate = new mustache.Template(contents, lenient: true);
+    metadata['content'] = contentTemplate.renderString(metadata);
+
     var output = template.renderString(metadata);
 
     await buildStep.writeAsString(outputId, output);
@@ -30,7 +34,8 @@ class MustacheBuilder implements Builder {
     for (var asset in assets) {
       var assetFileName = asset.path;
       if (assetFileName == fileName) {
-        var assetStr = await buildStep.readAsString(new AssetId(asset.package, asset.path));
+        var assetStr = await buildStep
+            .readAsString(new AssetId(asset.package, asset.path));
         return assetStr;
       }
     }
@@ -38,10 +43,8 @@ class MustacheBuilder implements Builder {
     return "";
   }
 
-
   Map<String, List<String>> get buildExtensions => {
-        Extensions.withPartials: [Extensions.html],
-        Extensions.mustache: [Extensions.html],
+        Extensions.htmlContent: [Extensions.html],
       };
 
   Future<Map<String, dynamic>> _readMetadata(BuildStep buildStep) async {

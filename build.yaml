@@ -10,40 +10,38 @@ builders:
     auto_apply: root_package
     required_inputs:
       - .md
-  markdown:
-    import: "package:tavern/tavern.dart"
-    builder_factories:
-      - markdownBuilder
-    build_extensions:
-      .mdcontent:
-        - .htmlcontent
-    auto_apply: root_package
-    required_inputs:
-      - .mdcontent
   partial:
     import: "package:tavern/tavern.dart"
     builder_factories:
     - partialBuilder
     build_extensions:
-      .htmlcontent:
+      .mdcontent:
       - .withpartials
     auto_apply: root_package
     required_inputs:
-    - .htmlcontent
+    - .mdcontent
+  markdown:
+    import: "package:tavern/tavern.dart"
+    builder_factories:
+      - markdownBuilder
+    build_extensions:
+      .withpartials:
+        - .htmlcontent
+    auto_apply: root_package
+    required_inputs:
+      - .withpartials
   mustache:
     import: "package:tavern/tavern.dart"
     builder_factories:
     - mustacheBuilder
     build_extensions:
-      .withpartials:
+      .htmlcontent:
       - .html
     auto_apply: root_package
     required_inputs:
-    - .mustache
-    - .metadata
-    - .withpartials
-    applies_builders:
-      - tavern|cleanup
+    - .htmlcontent
+#    applies_builders:
+#      - tavern|cleanup
 post_process_builders:
   cleanup:
     import: "package:tavern/tavern.dart"

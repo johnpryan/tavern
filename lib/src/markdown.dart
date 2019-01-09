@@ -17,6 +17,6 @@ class MarkdownBuilder implements Builder {
   }
 
   Map<String, List<String>> get buildExtensions => {
-        Extensions.markdownContent: [Extensions.htmlContent]
+        Extensions.withPartials: [Extensions.htmlContent]
       };
 }

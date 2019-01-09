@@ -38,6 +38,6 @@ class PartialBuilder implements Builder {
   }
 
   Map<String, List<String>> get buildExtensions => {
-        Extensions.htmlContent: [Extensions.withPartials],
+        Extensions.markdownContent: [Extensions.withPartials],
       };
 }
