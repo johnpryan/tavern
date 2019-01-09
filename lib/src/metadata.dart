@@ -14,7 +14,7 @@ class MetadataBuilder implements Builder {
     var inputId = buildStep.inputId;
 
     var metadataOutputId = inputId.changeExtension(Extensions.metadata);
-    var contentsOutputId = inputId.changeExtension(Extensions.contents);
+    var contentsOutputId = inputId.changeExtension(Extensions.markdownContent);
 
     var contents = await buildStep.readAsString(inputId);
     var metadata = extractMetadata(contents, inputId.path);
@@ -33,7 +33,7 @@ class MetadataBuilder implements Builder {
     return {
       Extensions.markdown: [
         Extensions.metadata,
-        Extensions.contents,
+        Extensions.markdownContent,
       ]
     };
   }

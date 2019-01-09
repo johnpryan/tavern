@@ -10,6 +10,8 @@ class MustacheBuilder implements Builder {
   Future build(BuildStep buildStep) async {
     var inputId = buildStep.inputId;
 
+    print("mustache inputId = $inputId");
+
     var outputId = inputId.changeExtension(Extensions.html);
     var contents = await buildStep.readAsString(inputId);
     var metadata = await _readMetadata(buildStep);
@@ -21,7 +23,8 @@ class MustacheBuilder implements Builder {
   }
 
   Map<String, List<String>> get buildExtensions => {
-        Extensions.mustache: [Extensions.html]
+        Extensions.htmlContent: [Extensions.html],
+        Extensions.mustache: [Extensions.html],
       };
 
   Future<Map<String, dynamic>> _readMetadata(BuildStep buildStep) async {

@@ -6,7 +6,7 @@ builders:
     build_extensions:
       .md:
         - .metadata
-        - .contents
+        - .mdcontent
     auto_apply: root_package
     required_inputs:
       - .md
@@ -15,25 +15,26 @@ builders:
     builder_factories:
       - markdownBuilder
     build_extensions:
-      .contents:
-        - .mustache
+      .mdcontent:
+        - .htmlcontent
     auto_apply: root_package
     required_inputs:
-      - .contents
+      - .mdcontent
   mustache:
     import: "package:tavern/tavern.dart"
     builder_factories:
     - mustacheBuilder
     build_extensions:
-      .mustache:
+      .htmlcontent:
       - .html
     auto_apply: root_package
     required_inputs:
     - .mustache
     - .metadata
-    applies_builders:
-      - tavern|cleanup
-post_process_builders:
-  cleanup:
-    import: "package:tavern/tavern.dart"
-    builder_factory: cleanupBuilder
+    - .htmlcontent
+#    applies_builders:
+#      - tavern|cleanup
+#post_process_builders:
+#  cleanup:
+#    import: "package:tavern/tavern.dart"
+#    builder_factory: cleanupBuilder

@@ -8,15 +8,15 @@ class MarkdownBuilder implements Builder {
   Future build(BuildStep buildStep) async {
     var inputId = buildStep.inputId;
 
-    var outputId = inputId.changeExtension(Extensions.mustache);
-    var contents = await buildStep.readAsString(inputId);
-    var markdownContents =
-        markdownToHtml(contents, extensionSet: ExtensionSet.gitHubWeb);
+    var outputId = inputId.changeExtension(Extensions.htmlContent);
+    var markdownContent = await buildStep.readAsString(inputId);
+    var htmlContent =
+        markdownToHtml(markdownContent, extensionSet: ExtensionSet.gitHubWeb);
 
-    await buildStep.writeAsString(outputId, markdownContents);
+    await buildStep.writeAsString(outputId, htmlContent);
   }
 
   Map<String, List<String>> get buildExtensions => {
-        Extensions.contents: [Extensions.mustache]
+        Extensions.markdownContent: [Extensions.htmlContent]
       };
 }
