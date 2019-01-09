@@ -27,11 +27,11 @@ class MustacheBuilder implements Builder {
   }
 
   Future<String> _readTemplate(BuildStep buildStep, String fileName) async {
-    var assets = await buildStep.findAssets(Glob("web/templates/**")).toList();
+    var assets = await buildStep.findAssets(Glob("**.mustache")).toList();
     for (var asset in assets) {
-      var assetFileName = p.url.basenameWithoutExtension(asset.path);
+      var assetFileName = asset.path;
       if (assetFileName == fileName) {
-        var assetStr = await buildStep.readAsString(asset);
+        var assetStr = await buildStep.readAsString(new AssetId(asset.package, asset.path));
         return assetStr;
       }
     }

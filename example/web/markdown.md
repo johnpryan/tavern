@@ -1,7 +1,7 @@
 ---
 title: "Markdown Basics"
 tags: ['code', 'dart']
-template: page
+template: lib/templates/_page.mustache
 ---
 
 Here is some code: 
