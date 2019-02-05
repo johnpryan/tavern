@@ -83,3 +83,7 @@ To build the static files for deployment, use the `build` command with the
 ```bash
 pub run build_runner build --release --output build
 ```
+
+## Dart 1
+See https://github.com/johnpryan/tavern-dart1 for the old Dart 1 compatible
+version of this project
