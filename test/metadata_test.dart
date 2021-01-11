@@ -3,11 +3,11 @@ import 'package:tavern/src/metadata.dart';
 import 'package:tavern/src/utils.dart';
 import 'dart:io';
 
-main() {
+void main() {
   group('extract metadata', () {
     test('extracts metadata', () {
       var path = 'test/fixtures/metadata.md';
-      var file = new File(path);
+      var file = File(path);
       var contents = file.readAsStringSync();
       var result = extractMetadata(contents, path);
       expect(result.metadata, isNotNull);
@@ -17,7 +17,7 @@ main() {
     });
     test('returns null if no metadata', () {
       var path = 'test/fixtures/no_metadata.md';
-      var file = new File(path);
+      var file = File(path);
       var contents = file.readAsStringSync();
       var result = extractMetadata(contents, path);
       expect(result, isNull);
@@ -25,7 +25,7 @@ main() {
 
     test('throws if bad metadata', () {
       var path = 'test/fixtures/bad_metadata.md';
-      var file = new File(path);
+      var file = File(path);
       var contents = file.readAsStringSync();
       expect(() => extractMetadata(contents, path), throwsA(anything));
     });

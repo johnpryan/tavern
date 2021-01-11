@@ -5,6 +5,7 @@ import 'package:tavern/src/extensions.dart';
 Builder markdownBuilder(_) => MarkdownBuilder();
 
 class MarkdownBuilder implements Builder {
+  @override
   Future build(BuildStep buildStep) async {
     var inputId = buildStep.inputId;
 
@@ -16,7 +17,8 @@ class MarkdownBuilder implements Builder {
     await buildStep.writeAsString(outputId, htmlContent);
   }
 
-  Map<String, List<String>> get buildExtensions => {
+  @override
+  Map<String, List<String>> get buildExtensions => const {
         Extensions.withPartials: [Extensions.htmlContent]
       };
 }

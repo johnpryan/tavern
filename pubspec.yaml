@@ -1,17 +1,17 @@
 name: tavern
 description: A static site generator for blogs with Dart support
-version: 3.2.1+1
+version: 3.3.0
 homepage: https://github.com/johnpryan/tavern
 author: John Ryan <john.p.ryan4@gmail.com>
 
 environment:
-  sdk: '>=2.1.0 <3.0.0'
+  sdk: '>=2.6.0 <3.0.0'
 
 dependencies:
   build: ^1.0.0
-  markdown: ^2.0.0
+  markdown: ^3.0.0
   yaml: ^2.1.0
-  mustache: ^1.0.0
+  mustache_template: ^1.0.0
   glob: ^1.1.0
   path: ^1.6.0
 

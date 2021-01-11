@@ -25,7 +25,7 @@ String getHtmlPath(String p) {
 }
 
 String stripTrailingSlash(String s) {
-  while (s?.endsWith('/') ?? false) {
+  while (s?.endsWith('/') == true) {
     s = s.substring(0, s.length - 1);
   }
   return s;

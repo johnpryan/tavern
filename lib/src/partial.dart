@@ -4,21 +4,22 @@ import 'package:tavern/src/extensions.dart';
 Builder partialBuilder(_) => PartialBuilder();
 
 class PartialBuilder implements Builder {
-  static final _includeRE = new RegExp(r'{{>(\s*)(.*)}}(\s*)');
+  static final _includeRE = RegExp(r'{{>(\s*)(.*)}}(\s*)');
 
+  @override
   Future build(BuildStep buildStep) async {
     var inputId = buildStep.inputId;
     var outputId = buildStep.inputId.changeExtension(Extensions.withPartials);
 
     var content = await buildStep.readAsString(inputId);
-    final List<Future> futures = [];
-    final Map<String, String> partials = {};
+    final futures = <Future>[];
+    final partials = <String, String>{};
 
     _includeRE.allMatches(content).forEach((match) {
       final path = match.group(2);
 
       var readStrFuture =
-          buildStep.readAsString(new AssetId(inputId.package, path));
+          buildStep.readAsString(AssetId(inputId.package, path));
 
       futures.add((readStrFuture).then((partial) async {
         final content = await partial;
@@ -37,7 +38,8 @@ class PartialBuilder implements Builder {
     await buildStep.writeAsString(outputId, newContent);
   }
 
-  Map<String, List<String>> get buildExtensions => {
+  @override
+  Map<String, List<String>> get buildExtensions => const {
         Extensions.markdownContent: [Extensions.withPartials],
       };
 }

@@ -9,28 +9,31 @@ const int CELL_SIZE = 10;
 
 CanvasElement canvas;
 CanvasRenderingContext2D ctx;
-Keyboard keyboard = new Keyboard();
+Keyboard keyboard = Keyboard();
 
 void main() {
   canvas = querySelector('#canvas')..focus();
   ctx = canvas.getContext('2d');
 
-  new Game()..run();
+  Game()..run();
 }
 
 void drawCell(Point coords, String color) {
-  ctx..fillStyle = color
-    ..strokeStyle = "white";
+  ctx
+    ..fillStyle = color
+    ..strokeStyle = 'white';
 
   final int x = coords.x * CELL_SIZE;
   final int y = coords.y * CELL_SIZE;
 
-  ctx..fillRect(x, y, CELL_SIZE, CELL_SIZE)
+  ctx
+    ..fillRect(x, y, CELL_SIZE, CELL_SIZE)
     ..strokeRect(x, y, CELL_SIZE, CELL_SIZE);
 }
 
 void clear() {
-  ctx..fillStyle = "white"
+  ctx
+    ..fillStyle = 'white'
     ..fillRect(0, 0, canvas.width, canvas.height);
 }
 
@@ -55,13 +58,13 @@ class Game {
   }
 
   void init() {
-    _snake = new Snake();
+    _snake = Snake();
     _food = _randomPoint();
   }
 
   Point _randomPoint() {
-    Random random = new Random();
-    return new Point(random.nextInt(_rightEdgeX), random.nextInt(_bottomEdgeY));
+    var random = Random();
+    return Point(random.nextInt(_rightEdgeX), random.nextInt(_bottomEdgeY));
   }
 
   void _checkForCollisions() {
@@ -72,8 +75,10 @@ class Game {
     }
 
     // check death conditions
-    if (_snake.head.x <= -1 || _snake.head.x >= _rightEdgeX ||
-        _snake.head.y <= -1 || _snake.head.y >= _bottomEdgeY ||
+    if (_snake.head.x <= -1 ||
+        _snake.head.x >= _rightEdgeX ||
+        _snake.head.y <= -1 ||
+        _snake.head.y >= _bottomEdgeY ||
         _snake.checkForBodyCollision()) {
       init();
     }
@@ -84,12 +89,12 @@ class Game {
   }
 
   void update(num delta) {
-    final num diff = delta - _lastTimeStamp;
+    final diff = delta - _lastTimeStamp;
 
     if (diff > GAME_SPEED) {
       _lastTimeStamp = delta;
       clear();
-      drawCell(_food, "blue");
+      drawCell(_food, 'blue');
       _snake.update();
       _checkForCollisions();
     }
@@ -100,19 +105,19 @@ class Game {
 }
 
 class Snake {
-  static const Point LEFT = const Point(-1, 0);
-  static const Point RIGHT = const Point(1, 0);
-  static const Point UP = const Point(0, -1);
-  static const Point DOWN = const Point(0, 1);
+  static const Point LEFT = Point(-1, 0);
+  static const Point RIGHT = Point(1, 0);
+  static const Point UP = Point(0, -1);
+  static const Point DOWN = Point(0, 1);
 
   static const int START_LENGTH = 6;
 
-  List<Point> _body;        // coordinates of the body segments
-  Point _dir = RIGHT;       // current travel direction
+  List<Point> _body; // coordinates of the body segments
+  Point _dir = RIGHT; // current travel direction
 
   Snake() {
-    int i = START_LENGTH - 1;
-    _body = new List<Point>.generate(START_LENGTH, (int index) => new Point(i--, 0));
+    var i = START_LENGTH - 1;
+    _body = List<Point>.generate(START_LENGTH, (int index) => Point(i--, 0));
   }
 
   Point get head => _body.first;
@@ -120,14 +125,11 @@ class Snake {
   void _checkInput() {
     if (keyboard.isPressed(KeyCode.LEFT) && _dir != RIGHT) {
       _dir = LEFT;
-    }
-    else if (keyboard.isPressed(KeyCode.RIGHT) && _dir != LEFT) {
+    } else if (keyboard.isPressed(KeyCode.RIGHT) && _dir != LEFT) {
       _dir = RIGHT;
-    }
-    else if (keyboard.isPressed(KeyCode.UP) && _dir != DOWN) {
+    } else if (keyboard.isPressed(KeyCode.UP) && _dir != DOWN) {
       _dir = UP;
-    }
-    else if (keyboard.isPressed(KeyCode.DOWN) && _dir != UP) {
+    } else if (keyboard.isPressed(KeyCode.DOWN) && _dir != UP) {
       _dir = DOWN;
     }
   }
@@ -147,13 +149,13 @@ class Snake {
 
   void _draw() {
     // starting with the head, draw each body segment
-    for (Point p in _body) {
-      drawCell(p, "green");
+    for (var p in _body) {
+      drawCell(p, 'green');
     }
   }
 
   bool checkForBodyCollision() {
-    for (Point p in _body.skip(1)) {
+    for (var p in _body.skip(1)) {
       if (p == head) {
         return true;
       }
@@ -170,7 +172,7 @@ class Snake {
 }
 
 class Keyboard {
-  HashMap<int, num> _keys = new HashMap<int, num>();
+  final HashMap<int, num> _keys = HashMap<int, num>();
 
   Keyboard() {
     window.onKeyDown.listen((KeyboardEvent event) {
